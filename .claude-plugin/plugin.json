@@ -1,0 +1,9 @@
+{
+  "name": "home-assistant-kit",
+  "version": "0.1.0",
+  "description": "Work with Claude on your Home Assistant the safe, structured way: house rules, notification conventions, first-run feedback checks, triage PDFs, dashboard design, statistics repair and custom integrations.",
+  "author": { "name": "David Teles", "url": "https://github.com/davidteles" },
+  "homepage": "https://github.com/davidteles/claude-home-assistant-kit",
+  "license": "MIT",
+  "keywords": ["home-assistant", "smart-home", "automation", "dashboards"]
+}

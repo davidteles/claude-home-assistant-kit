@@ -1,0 +1,42 @@
+blueprint:
+  name: First-run feedback checks
+  description: >-
+    The first times a new feature runs for real, show a notification asking
+    whether it worked. List the features and their questions below. A feature is
+    an automation entity ID (it fires when the automation runs) or any name you
+    send with the `checks_feature_ran` event. Remove an entry once confirmed.
+  domain: automation
+  source_url: https://github.com/davidteles/claude-home-assistant-kit/blob/main/blueprints/first_run_checks.yaml
+  input:
+    checks:
+      name: Features to check
+      description: 'One line per feature, e.g. automation.notify_tank_full: "Did the tank alert arrive in time?"'
+      selector:
+        object: {}
+      default: {}
+triggers:
+  - trigger: event
+    event_type: automation_triggered
+  - trigger: event
+    event_type: checks_feature_ran
+variables:
+  checks: !input checks
+  key: >-
+    {{ trigger.event.data.entity_id if trigger.event.event_type == 'automation_triggered'
+       else trigger.event.data.feature }}
+conditions:
+  - condition: template
+    value_template: "{{ key in checks }}"
+actions:
+  - action: persistent_notification.create
+    data:
+      notification_id: "check_{{ key | replace('automation.', '') }}"
+      title: "🧪 Check: {{ state_attr(key, 'friendly_name') or key }}"
+      message: >-
+        Just ran for real ({{ now().strftime('%a %d %b, %H:%M') }}).
+
+        {{ checks[key] }}
+
+        Tell your assistant what you saw, then dismiss this.
+mode: queued
+max: 10
