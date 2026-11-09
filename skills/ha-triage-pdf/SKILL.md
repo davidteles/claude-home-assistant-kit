@@ -7,6 +7,8 @@ description: Use when there is a backlog of Home Assistant ideas, fixes or quest
 
 Long chats bury decisions. A fillable PDF lets the user decide calmly, on any device, and gives you structured answers back.
 
+When the user asks for it (or runs `/ha-triage-pdf`), collect every open idea, fix and question from the conversation and the project's notes, build the PDF, and tell them where it was saved and that an empty choice counts as Later.
+
 ## Build it
 
 - Use reportlab's AcroForm fields: per item, a **radio group** `Now / Later / Ignore` and a **multiline text field** for notes (give it real height, ~80 pt).

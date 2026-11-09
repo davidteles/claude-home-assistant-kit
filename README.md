@@ -23,12 +23,14 @@ A plugin for [Claude Code](https://claude.com/claude-code). It packages a way of
 | Command | Does |
 |---|---|
 | `/ha-review` | A ranked health review: safety first, then what people notice, then quick wins. Read-only. |
-| `/ha-triage-pdf` | Build the triage PDF from the current backlog |
+| `/ha-triage-pdf` | Build the triage PDF from the current backlog (the `ha-triage-pdf` skill) |
 | `/ha-checks` | List pending first-run checks and close the confirmed ones |
 
 ### Blueprint
 
 - [`blueprints/first_run_checks.yaml`](blueprints/first_run_checks.yaml): the first-run feedback automation, ready to import.
+
+  [![Import blueprint](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fdavidteles%2Fclaude-home-assistant-kit%2Fblob%2Fmain%2Fblueprints%2Ffirst_run_checks.yaml)
 
 ## Requirements
 
@@ -45,7 +47,7 @@ In Claude Code:
 /plugin install home-assistant-kit@claude-home-assistant-kit
 ```
 
-Import the blueprint in Home Assistant: *Settings → Automations & scenes → Blueprints → Import blueprint* and paste the blueprint's GitHub URL.
+Import the blueprint with the button above, or in Home Assistant: *Settings → Automations & scenes → Blueprints → Import blueprint* and paste the blueprint's GitHub URL.
 
 ## How to work with it
 

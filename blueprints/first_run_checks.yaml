@@ -5,6 +5,8 @@ blueprint:
     whether it worked. List the features and their questions below. A feature is
     an automation entity ID (it fires when the automation runs) or any name you
     send with the `checks_feature_ran` event. Remove an entry once confirmed.
+    Prefer the event: fire it right after the feature really acts (for example
+    after it notifies). An automation ID counts every run, including restarts.
   domain: automation
   source_url: https://github.com/davidteles/claude-home-assistant-kit/blob/main/blueprints/first_run_checks.yaml
   input:
@@ -38,5 +40,6 @@ actions:
         {{ checks[key] }}
 
         Tell your assistant what you saw, then dismiss this.
-mode: queued
-max: 10
+mode: parallel
+max: 50
+max_exceeded: silent
