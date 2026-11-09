@@ -1,7 +1,14 @@
 {
   "name": "claude-home-assistant-kit",
-  "owner": { "name": "David Teles" },
+  "description": "House rules, workflows and skills for building a Home Assistant home with Claude, safely.",
+  "owner": {
+    "name": "David Teles"
+  },
   "plugins": [
-    { "name": "home-assistant-kit", "source": "./", "description": "House rules, workflows and skills for building a Home Assistant home with Claude." }
+    {
+      "name": "home-assistant-kit",
+      "source": "./",
+      "description": "House rules, workflows and skills for building a Home Assistant home with Claude."
+    }
   ]
 }

@@ -11,11 +11,12 @@ Many features can't be fully tested while you're at the keyboard: a reminder tha
 
 One automation ("Checks - ask for feedback the first times a new feature runs") holds a dictionary of `feature → question`:
 
-- **Trigger:** the event that *really matters* for each feature (not every run). Use `automation_triggered` for simple cases, a specific state (`door open for 10 min`), or a custom event the feature fires only when it truly acts:
+- **Trigger:** the event that *really matters* for each feature (not every run). Prefer a custom event the feature fires only when it truly acts (right after it notifies), or a specific state (`door open for 10 min`):
   ```yaml
   - event: checks_feature_ran
     event_data: { feature: automation.notify_dehumidifier_tank }
   ```
+  `automation_triggered` is only safe for automations with a single, real trigger. It fires on **every** run, including runs that change nothing, and automations with a `homeassistant: start` trigger run at every restart, so the note would claim a real run that never happened.
 - **Action:** `persistent_notification.create` with `notification_id: check_<feature>` (one per feature, never piles up): "Just ran for real (Sat 08 Nov, 12:08). *Question.* Tell Claude what you saw, then dismiss this."
 
 ## Lifecycle
