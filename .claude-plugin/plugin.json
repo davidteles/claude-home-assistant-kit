@@ -1,6 +1,6 @@
 {
   "name": "home-assistant-kit",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Work with Claude on your Home Assistant the safe, structured way: house rules, notification conventions, first-run feedback checks, triage PDFs, dashboard design, statistics repair and custom integrations.",
   "author": {
     "name": "David Teles",

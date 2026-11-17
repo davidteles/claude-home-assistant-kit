@@ -16,7 +16,10 @@ When the user asks for it (or runs `/ha-triage-pdf`), collect every open idea, f
 - Put **pending items first**, then a **done log** (newest batch on top, dated) so the user sees progress.
 - Add a final free-text "anything else" page.
 - **No selection means Later.** Say so at the top.
-- Name files with date and version (`… (2026-11-08 v5).pdf`) and save where the user can find them.
+- Name files with date and version (`… (2026-11-08 v5).pdf`) and save where the user can find them. **Bump the version on every new file**, even on the same day - never reuse a number.
+- Start with a short **"since last version"** note and a **"please confirm in real life"** table (what / when / what you should see).
+- Add a short **review page**: what is healthy, what was found and fixed, what needs the user, what you check next, and whether to slow down.
+- Mark items **NEW** / **UPDATED** so a returning reader sees what changed.
 
 ## Read it back
 
@@ -27,4 +30,5 @@ When the user asks for it (or runs `/ha-triage-pdf`), collect every open idea, f
 ## Tips
 
 - Keep each item self-contained. The user may read it days later.
+- Before asking for an OK (a release, a merge), check it hasn't already happened (`gh release list`, the PR state). A stale question wastes the user's attention.
 - Preview a page as an image (pypdfium2 with forms initialised) before sending, to check the fields are where you think.
