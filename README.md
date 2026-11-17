@@ -4,6 +4,27 @@
 
 A plugin for [Claude Code](https://claude.com/claude-code). It packages a way of working that grew out of turning a real home's Home Assistant into a wall-panel-driven, notification-smart, family-friendly system with Claude: the guardrails, conventions and workflows that made it work. It isn't a set of dashboards to copy (those live in their own repos). It's the **method**.
 
+**See it in action:** [a worked example](docs/worked-example.md) follows one real fix from `/ha-review` to the household confirming it, including how it would have been rolled back.
+
+## Trust and permissions
+
+This kit is **instructions**: skills and commands that shape how Claude works. They are not a security boundary. What Claude can actually do is decided by the connection you give it, the Home Assistant account behind it, and Claude Code's own permission settings.
+
+| Layer | What enforces it | What it means |
+|---|---|---|
+| **Claude Code** | Its permission mode | In the default mode, Claude asks before running commands and tools you haven't allow-listed. Don't run it with permission checks bypassed against a live home. |
+| **The connection to Home Assistant** | The MCP server or API you set up | Home Assistant's own **MCP Server** integration only reaches entities you exposed to Assist and can't edit configuration. Community MCP servers can usually edit automations, dashboards and helpers; some offer a **read-only mode**. A logged-in browser session has that user's full rights. |
+| **The Home Assistant account** | Home Assistant | A token or session acts as its user. **Non-admin** users can control devices but can't change configuration; **admins** can change everything. Home Assistant has no built-in read-only user. |
+| **The house rules** (this kit) | Nothing: Claude follows them | Back up first, ask before anything destructive, never open doors, no credentials in chat. They make Claude careful; they don't stop it. |
+
+**Recommended start:** connect read-only (Home Assistant's MCP Server, or a community server in read-only mode), run `/ha-review`, and only give write access when you want Claude to change something. Keep Claude Code in its default permission mode.
+
+- **Read-only:** reviews, reading traces and logs, reading configuration.
+- **Writes, each one approved:** automations, scripts, helpers, dashboards, settings. Claude states the change and the backup first.
+- **Never in this repo or in chat:** passwords, tokens, alarm codes, HomeKit setup codes, Bluetooth keys, addresses, family names.
+
+[docs/workflow-checks.md](docs/workflow-checks.md) has four repeatable checks for the workflow (a review doesn't write, a write waits for approval, failures are reported, first-run checks close) and, separately, the permission checks worth doing when you set up the connection.
+
 ## What's inside
 
 ### Skills (Claude loads them when they're relevant)
@@ -51,7 +72,7 @@ Import the blueprint with the button above, or in Home Assistant: *Settings → 
 
 ## How to work with it
 
-1. **Start with a review:** `/ha-review`. Claude ranks what matters and changes nothing yet.
+1. **Start with a review:** `/ha-review`. Claude ranks what matters and changes nothing yet (and *can't*, if the connection is read-only).
 2. **Decide calmly:** `/ha-triage-pdf`, then fill it in on your phone or tablet and hand it back.
 3. **Build in small steps.** Claude follows the house rules: it tests each change for real, tags it, documents why, and adds a first-run check when only real life can confirm it.
 4. **Close the loop.** When a check note appears, tell Claude what happened (`/ha-checks`).
@@ -66,7 +87,12 @@ Import the blueprint with the button above, or in Home Assistant: *Settings → 
 
 ## Related repos
 
-- [`ha-delonghi-ddsx`](https://github.com/davidteles/ha-delonghi-ddsx): an example of the `ha-custom-integration` skill in practice.
+Built with this workflow:
+
+- [`ha-blueprints`](https://github.com/davidteles/ha-blueprints): automations, each tested for real before release.
+- [`ha-wall-panel-kit`](https://github.com/davidteles/ha-wall-panel-kit): the wall tablet and phone dashboards (`ha-dashboard-design`).
+- [`ha-delonghi-ddsx`](https://github.com/davidteles/ha-delonghi-ddsx): the `ha-custom-integration` skill in practice, with regression tests against a fake device.
+- [`ks-glass-info`](https://github.com/davidteles/ks-glass-info) and [`ha-festive-panel`](https://github.com/davidteles/ha-festive-panel): the idle tablet screen and the seasonal layer.
 
 ## Contributing
 
