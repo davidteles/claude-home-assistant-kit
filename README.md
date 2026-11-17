@@ -10,7 +10,7 @@ A plugin for [Claude Code](https://claude.com/claude-code). It packages a way of
 
 | Skill | What it gives Claude |
 |---|---|
-| `ha-house-rules` | Guardrails (never open doors, no credentials in chat, don't break what the family uses), naming, categories/labels, real testing, HomeKit Bridge hygiene |
+| `ha-house-rules` | Guardrails (never open doors, no credentials in chat, don't break what the family uses), naming, categories/labels, real testing, backups, presence and guest rules, template traps, guided test sessions, HomeKit Bridge hygiene |
 | `ha-notifications` | Readable phone alerts: short push + full report, "press and hold" for buttons, tags that replace and clear, real signals over guesses |
 | `ha-first-run-checks` | Let Home Assistant ask *you* whether a new feature worked, the first time it runs for real |
 | `ha-triage-pdf` | Turn a backlog into a fillable Now / Later / Ignore PDF and read the answers back |

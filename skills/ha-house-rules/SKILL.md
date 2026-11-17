@@ -23,6 +23,20 @@ A Home Assistant instance is a family's live home, so everything you change is f
 - **Native triggers and conditions** over templates; templates belong in messages and variables.
 - **Test it for real.** Run it (or trigger its path), read the trace, and report what actually happened. Don't say "should work".
 - **New behaviour gets a first-run check** (see `ha-first-run-checks`) so the user confirms it in real life.
+- **Back up before you change.** Save the old config (automation, script, dashboard, YAML file) to a dated rollback file first, and name it in the description or your report.
+
+## Presence ("everyone left") automations
+
+- **Ignore presence blips.** A phone app reloading makes its person `unknown` for a split second, which can look like "everyone left". Use `not_from: [unknown, unavailable]` on state triggers, or check `trigger.from_state` / `to_state` on zone triggers, or require the empty house to last a minute.
+- **Respect a guest.** If the home has a "Guest at home" toggle (or should have one), every automation that acts on an empty house (arming the alarm, lights off, blinds, heating away, leaving reminders, screen off) checks it first. Nobody wants to leave a guest in the dark with the alarm armed around them.
+- **One owner per job.** If Apple Home, Google Home or a vendor app also has an "everyone left" automation, two systems fight over the same lights, and the phone apps' presence can misfire. Pick one (usually Home Assistant, which has the guards above) and ask the user to switch the other off.
+- **Who did it?** When "everything turned off" and no automation ran, check the logbook context: HomeKit Bridge entries ("send command turn_off for …") mean the command came from Apple Home, not from Home Assistant.
+
+## Templates that bite
+
+- **`false` written as text in automation `variables` stays the string "false", which is truthy.** In variables, write `{{ false }}` / `{{ true }}` (or a full expression). In template *conditions* and *triggers*, text "false" is fine.
+- Read the state **when the run starts**, not when it was triggered, in `queued` automations: several sensors changing in the same second otherwise each act on old state (duplicate notifications, double cards).
+- Combining two readings from different devices (e.g. two energy clamps)? Check they are from the same moment (`last_reported` within a second or two) before doing maths with them.
 
 ## Helpers and entities
 
@@ -33,6 +47,12 @@ A Home Assistant instance is a family's live home, so everything you change is f
 
 - **List entities one by one. Never include whole domains.** A whole-domain rule silently picks up every new entity at the next bridge reload and floods Apple Home.
 - Any save reloads the bridge. Afterwards, read the bridge's diagnostics and check the accessory list is exactly what you intended.
+
+## Testing with the user
+
+- Some things can only be checked in real life (presence, alarms, phone cards). Offer a **guided test session**: a short script of steps (what they do / what you do / what they should see / the question you'll ask), saved where they can read it first.
+- **The user starts it**, at a time that suits them. Run one step at a time and ask after each one. Keep steps reversible and never include doors, gates, locks or codes.
+- Long-running comparisons (a new controller shadowing an old one) report progress every time: runs so far, your confidence, and the last bug fixed. Switch over only when the user agrees; keep the old one installed but stopped for a quick rollback, and remove it after a few good days.
 
 ## Working style
 
