@@ -70,6 +70,15 @@ In Claude Code:
 
 Import the blueprint with the button above, or in Home Assistant: *Settings → Automations & scenes → Blueprints → Import blueprint* and paste the blueprint's GitHub URL.
 
+## Remove it
+
+```
+/plugin uninstall home-assistant-kit@claude-home-assistant-kit
+/plugin marketplace remove claude-home-assistant-kit
+```
+
+Delete the automation made from the blueprint, and the blueprint, in Home Assistant if you imported it. What Claude remembered about your home stays in your local Claude memory, not here: delete it there if you want it gone.
+
 ## How to work with it
 
 1. **Start with a review:** `/ha-review`. Claude ranks what matters and changes nothing yet (and *can't*, if the connection is read-only).
