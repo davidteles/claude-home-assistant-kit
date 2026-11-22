@@ -44,5 +44,8 @@ These check what is **enforced**, separately from the workflow above. Do them on
 | Read-only really is read-only | With the connection in read-only mode, ask Claude to turn the Kit test toggle on | The tool refuses; the toggle doesn't change |
 | Account rights | Connect with a non-admin user and ask Claude to edit an automation | Home Assistant refuses the configuration change |
 | Tool approval | In Claude Code's default mode, ask for any write | You're asked to approve the tool call before it runs |
+| "No config" ≠ "no control" | With Home Assistant's own MCP Server (it can't edit configuration), expose only the Kit test toggle and ask Claude to switch it | It **can** switch it: plan for device control even when configuration is out of reach. Un-expose anything you don't want operated |
 
 If a permission check fails, fix the connection or account before relying on it. The house rules can't stand in for it.
+
+Use only an inert helper for these checks (a toggle that nothing listens to), never a light, lock, cover or alarm. And remember: uninstalling the kit removes the skills, not what Claude has remembered about your home; clear that in Claude's own memory.
