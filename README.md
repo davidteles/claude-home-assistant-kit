@@ -13,17 +13,19 @@ This kit is **instructions**: skills and commands that shape how Claude works. T
 | Layer | What enforces it | What it means |
 |---|---|---|
 | **Claude Code** | Its permission mode | In the default mode, Claude asks before running commands and tools you haven't allow-listed. Don't run it with permission checks bypassed against a live home. |
-| **The connection to Home Assistant** | The MCP server or API you set up | Home Assistant's own **MCP Server** integration only reaches entities you exposed to Assist and can't edit configuration. Community MCP servers can usually edit automations, dashboards and helpers; some offer a **read-only mode**. A logged-in browser session has that user's full rights. |
+| **The connection to Home Assistant** | The MCP server or API you set up | Home Assistant's own **MCP Server** integration only reaches entities you exposed to Assist and can't edit configuration, **but it can control them**: switch lights, open covers, unlock an exposed lock. Community MCP servers can usually edit automations, dashboards and helpers; some offer a **read-only mode**. A logged-in browser session has that user's full rights. |
 | **The Home Assistant account** | Home Assistant | A token or session acts as its user. **Non-admin** users can control devices but can't change configuration; **admins** can change everything. Home Assistant has no built-in read-only user. |
 | **The house rules** (this kit) | Nothing: Claude follows them | Back up first, ask before anything destructive, never open doors, no credentials in chat. They make Claude careful; they don't stop it. |
 
 **Recommended start:** connect read-only (Home Assistant's MCP Server, or a community server in read-only mode), run `/ha-review`, and only give write access when you want Claude to change something. Keep Claude Code in its default permission mode.
 
+**"Can't edit configuration" is not "inspect-only".** A connection that can't change automations may still operate every device it can see. For a truly inspect-only start, use a server in read-only mode, or expose nothing you wouldn't want switched. [Permission checks](docs/workflow-checks.md#permission-checks) shows how to find out with a harmless helper.
+
 - **Read-only:** reviews, reading traces and logs, reading configuration.
 - **Writes, each one approved:** automations, scripts, helpers, dashboards, settings. Claude states the change and the backup first.
 - **Never in this repo or in chat:** passwords, tokens, alarm codes, HomeKit setup codes, Bluetooth keys, addresses, family names.
 
-[docs/workflow-checks.md](docs/workflow-checks.md) has four repeatable checks for the workflow (a review doesn't write, a write waits for approval, failures are reported, first-run checks close) and, separately, the permission checks worth doing when you set up the connection.
+[docs/testing.md](docs/testing.md) explains the three kinds of test (scenario tests, live simulations, physical first runs) and how to dry-run a change and its rollback. [docs/patterns.md](docs/patterns.md) collects design patterns worth reusing. [docs/workflow-checks.md](docs/workflow-checks.md) has four repeatable checks for the workflow (a review doesn't write, a write waits for approval, failures are reported, first-run checks close) and, separately, the permission checks worth doing when you set up the connection.
 
 ## What's inside
 
